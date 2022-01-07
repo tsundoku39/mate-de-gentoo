@@ -75,6 +75,9 @@ src_configure() {
 		$(use_enable introspection) \
 		$(use_enable nls) \
 		$(use_enable xmp)
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_test() {
