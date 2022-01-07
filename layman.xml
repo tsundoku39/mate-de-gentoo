@@ -8,7 +8,7 @@
 			<name>Oz Tiram</name>
             <email>oz.tiram@gmail.com</email>
 		</owner>
-		<source type="git">git@github.com:oz123/mate-de-gentoo.git</source>
-        <source type="git">https://github.com/oz123/mate-de-gentoo.git</source>
+		<source type="git">git@github.com:tsundoku39/mate-de-gentoo.git</source>
+        <source type="git">https://github.com/tsundoku39/mate-de-gentoo.git</source>
 	</repo>
 </repositories>
