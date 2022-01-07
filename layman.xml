@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <repositories version="1.0">
 	<repo quality="experimental" status="unofficial">
-		<name>mate-de-gentoo</name>
+		<name>mate-tsundoku</name>
 		<description lang="en">MATE Desktop EBuilds</description>
     		<homepage>https://wiki.gentoo.org/wiki/Project:MATE</homepage>
 		<owner>
