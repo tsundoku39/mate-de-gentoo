@@ -71,4 +71,7 @@ src_configure() {
 		$(use_with lcms cms) \
 		$(use_with svg librsvg) \
 		$(use_with xmp)
+	pushd po
+	make update-gmo
+	popd
 }
