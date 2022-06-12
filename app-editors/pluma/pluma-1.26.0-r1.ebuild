@@ -77,7 +77,7 @@ src_configure() {
 		$(use_enable spell) \
 		$(use_enable test tests)
 	pushd po
-	update-gmo
+	make update-gmo
 	popd
 }
 
