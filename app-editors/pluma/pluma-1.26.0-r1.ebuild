@@ -76,6 +76,9 @@ src_configure() {
 		$(use_enable introspection) \
 		$(use_enable spell) \
 		$(use_enable test tests)
+	pushd po
+	update-gmo
+	popd
 }
 
 src_test() {
