@@ -69,4 +69,7 @@ src_configure() {
 		$(use_enable appindicator) \
 		$(use_enable nls) \
 		$(use_enable debug)
+	pushd po
+	make update-gmo
+	popd
 }
