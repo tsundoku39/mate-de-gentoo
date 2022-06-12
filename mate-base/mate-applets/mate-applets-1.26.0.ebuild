@@ -77,6 +77,9 @@ src_configure() {
 		$(use_enable ipv6) \
 		$(use_enable policykit polkit) \
 		"${myconf[@]}"
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_test() {
