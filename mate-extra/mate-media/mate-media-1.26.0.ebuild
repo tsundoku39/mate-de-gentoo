@@ -36,3 +36,9 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	!!<mate-base/mate-applets-1.8
 "
+
+post_src_configure() {
+	pushd po
+	make update-gmo
+	popd
+}

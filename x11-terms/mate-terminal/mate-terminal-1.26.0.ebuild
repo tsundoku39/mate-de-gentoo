@@ -41,3 +41,9 @@ DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.19.8
 	virtual/pkgconfig
 "
+
+post_src_configure() {
+	pushd po
+	make update-gmo
+	popd
+}

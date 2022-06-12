@@ -71,4 +71,7 @@ src_configure() {
 		$(use_enable pulseaudio pulse) \
 		$(use_enable rfkill) \
 		$(use_enable smartcard smartcard-support)
+	pushd po
+	make update-gmo
+	popd
 }

@@ -50,4 +50,7 @@ src_configure() {
 		$(use_enable debug) \
 		$(use_enable introspection) \
 		$(use_enable startup-notification)
+	pushd po
+	make update-gmo
+	popd
 }

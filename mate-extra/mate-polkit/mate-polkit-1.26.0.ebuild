@@ -39,4 +39,7 @@ src_configure() {
 		--disable-static \
 		$(use_enable accountsservice) \
 		$(use_enable appindicator)
+	pushd po
+	make update-gmo
+	popd
 }

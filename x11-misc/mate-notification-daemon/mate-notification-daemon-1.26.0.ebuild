@@ -53,6 +53,9 @@ src_configure() {
 		$(use_enable nls)
 		$(use_enable X x11) \
 		$(use_enable wayland)
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_install() {

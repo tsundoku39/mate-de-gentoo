@@ -64,6 +64,9 @@ src_configure() {
 		$(use_with libsecret) \
 		$(use_enable applet applets) \
 		$(use_enable test tests)
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_test() {

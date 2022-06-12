@@ -33,3 +33,9 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.50.1
 	sys-devel/gettext:*
 	virtual/pkgconfig:*"
+
+post_src_configure() {
+	pushd po
+	make update-gmo
+	popd
+}

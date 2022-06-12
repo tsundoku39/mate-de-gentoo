@@ -71,4 +71,7 @@ src_configure() {
 		$(use_enable ipv6) \
 		$(use_enable nls) \
 		$(use_enable udisks disk_image_mounter)
+	pushd po
+	make update-gmo
+	popd
 }
