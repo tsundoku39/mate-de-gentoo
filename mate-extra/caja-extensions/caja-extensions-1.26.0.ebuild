@@ -75,4 +75,7 @@ src_configure() {
 		$(use_enable share) \
 		$(use_enable wallpaper) \
 		$(use_enable xattr xattr-tags)
+	pushd po
+	make update-gmo
+	popd
 }
