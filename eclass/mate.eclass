@@ -7,7 +7,7 @@
 # @AUTHOR:
 # Authors: NP-Hardass <NP-Hardass@gentoo.org> based upon the gnome2
 # and autotools-utils eclasses
-# @SUPPORTED_EAPIS: 6 7
+# @SUPPORTED_EAPIS: 7 8
 # @BLURB: Provides phases for MATE based packages.
 # @DESCRIPTION:
 # Exports portage base functions used by ebuilds written for packages using the
@@ -16,13 +16,13 @@
 
 # Check EAPI only
 case "${EAPI:-0}" in
-	6|7) ;;
+	7|8) ;;
 	*) die "EAPI=${EAPI:-0} is not supported" ;;
 esac
 
 # Inherit happens below after declaration of GNOME2_LA_PUNT
 
-# @ECLASS-VARIABLE: MATE_LA_PUNT
+# @ECLASS_VARIABLE: MATE_LA_PUNT
 # @DESCRIPTION:
 # Available values for MATE_LA_PUNT:
 # - "no": will not clean any .la files
@@ -39,7 +39,7 @@ GNOME2_LA_PUNT="${MATE_LA_PUNT}"
 inherit gnome2 autotools mate-desktop.org
 
 case "${EAPI:-0}" in
-	6|7) EXPORT_FUNCTIONS src_prepare src_configure src_install pkg_preinst pkg_postinst pkg_postrm ;;
+	7|8) EXPORT_FUNCTIONS src_prepare src_configure src_install pkg_preinst pkg_postinst pkg_postrm ;;
 	*) die "EAPI=${EAPI:-0} is not supported" ;;
 esac
 
@@ -63,7 +63,7 @@ mate_py_cond_func_wrap() {
 	fi
 }
 
-# @ECLASS-VARIABLE: MATE_FORCE_AUTORECONF
+# @ECLASS_VARIABLE: MATE_FORCE_AUTORECONF
 # @DESCRIPTION:
 # Available values for MATE_FORCE_AUTORECONF:
 # - true: will always run eautoreconf

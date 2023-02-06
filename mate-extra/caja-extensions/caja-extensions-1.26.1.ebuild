@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -7,8 +7,8 @@ MATE_LA_PUNT="yes"
 
 inherit mate
 
-if [[ ${PV} != 9999 ]]; then
-	KEYWORDS="~amd64"
+if [[ "${PV}" != *9999 ]]; then
+	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
 fi
 
 DESCRIPTION="Several Caja extensions"
@@ -18,7 +18,8 @@ SLOT="0"
 SENDTO="cdr gajim +mail pidgin upnp"
 IUSE="image-converter nls +open-terminal share +wallpaper xattr ${SENDTO}"
 
-COMMON_DEPEND=">=dev-libs/glib-2.50:2
+COMMON_DEPEND="
+	>=dev-libs/glib-2.50:2
 	>=mate-base/caja-1.21.3
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.22:3
@@ -45,16 +46,12 @@ RDEPEND="${COMMON_DEPEND}
 	pidgin? ( net-im/pidgin )
 "
 
-DEPEND="${COMMON_DEPEND}
+BDEPEND="${COMMON_DEPEND}
 	dev-libs/libxml2
 	dev-util/gtk-doc
 	dev-util/gtk-doc-am
 	>=sys-devel/gettext-0.19.8
 	virtual/pkgconfig
-	!!mate-extra/mate-file-manager-open-terminal
-	!!mate-extra/mate-file-manager-sendto
-	!!mate-extra/mate-file-manager-image-converter
-	!!mate-extra/mate-file-manager-share
 "
 
 src_configure() {
