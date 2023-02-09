@@ -105,6 +105,9 @@ src_configure() {
 		$(use_enable test tests) \
 		$(use_enable tiff) \
 		$(use_enable xps)
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_test() {
