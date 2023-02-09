@@ -72,6 +72,9 @@ src_configure() {
 		$(use_with xtrans)  \
 		$(use_enable debug) \
 		$(use_enable nls)
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_install() {
