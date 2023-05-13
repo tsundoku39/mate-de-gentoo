@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,7 @@ EAPI=7
 MATE_LA_PUNT="yes"
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{9..11} )
 
 inherit mate python-single-r1 virtualx
 
@@ -60,6 +60,10 @@ DEPEND="${COMMON_DEPEND}
 "
 
 MATE_FORCE_AUTORECONF=true
+
+PATCHES=(
+	"${FILESDIR}"/pluma-1.26.0-fortify-source-3.patch
+)
 
 src_prepare() {
 	# Test require gvfs sftp fs mounted and schema's installed. Skip this one.

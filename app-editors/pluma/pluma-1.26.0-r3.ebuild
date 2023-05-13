@@ -1,43 +1,36 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{8..10} )
-DISTUTILS_USE_SETUPTOOLS=rdepend
+MATE_LA_PUNT="yes"
 
-if [[ ${PV} == 9999* ]]; then
-	EGIT_REPO_URI="https://github.com/mate-desktop/${PN}.git"
-	inherit git-r3
-else
-	SRC_URI="https://github.com/mate-desktop/${PN}/archive/${P}.tar.xz"
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
-fi
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{9..11} )
 
 inherit mate python-single-r1 virtualx
 
-DESCRIPTION="Pluma text editor for the MATE desktop"
-HOMEPAGE="https://mate-desktop.org/ https://github.com/mate-desktop/pluma"
+if [[ "${PV}" != *9999 ]]; then
+	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
+fi
 
+DESCRIPTION="Pluma text editor for the MATE desktop"
 LICENSE="FDL-1.1+ GPL-2+ LGPL-2+"
 SLOT="0"
 IUSE="+introspection spell test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-# Tests require gvfs sftp fs mounted and schema's installed. Disable tests.
-# https://github.com/mate-desktop/mate-text-editor/issues/33
-RESTRICT="test"
+RESTRICT="!test? ( test )"
 
 COMMON_DEPEND="
-	dev-libs/atk
+	app-accessibility/at-spi2-core:2
 	>=dev-libs/glib-2.50:2
 	>=dev-libs/libpeas-1.2.0[gtk]
 	>=dev-libs/libxml2-2.5:2
 	x11-libs/cairo
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.22:3[introspection?]
-	>=x11-libs/gtksourceview-4.0.2
+	>=x11-libs/gtksourceview-4.0.2:4
 	x11-libs/libICE
 	x11-libs/libX11
 	>=x11-libs/libSM-1.0
@@ -47,21 +40,16 @@ COMMON_DEPEND="
 		>=app-text/enchant-1.6:=
 		>=app-text/iso-codes-0.35
 	)
-	!!app-editors/mate-text-editor
 "
 
-RDEPEND="
+RDEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
-	${COMMON_DEPEND}
 	>=mate-base/mate-desktop-1.9[introspection?]
 	virtual/libintl
 "
 
-DEPEND="
-	${COMMON_DEPEND}
+DEPEND="${COMMON_DEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
-	app-text/rarian
-	>=app-text/scrollkeeper-dtd-1:1.0
 	app-text/yelp-tools
 	dev-util/glib-utils
 	dev-util/gtk-doc
@@ -70,6 +58,20 @@ DEPEND="
 	>=sys-devel/gettext-0.19.8
 	virtual/pkgconfig
 "
+
+MATE_FORCE_AUTORECONF=true
+
+PATCHES=(
+	"${FILESDIR}"/${P}-fortify-source-3.patch
+)
+
+src_prepare() {
+	# Test require gvfs sftp fs mounted and schema's installed. Skip this one.
+	# https://github.com/mate-desktop/mate-text-editor/issues/33
+	sed -e '/+= document-saver/d' -i tests/Makefile.am || die
+
+	mate_src_prepare
+}
 
 src_configure() {
 	mate_src_configure \
@@ -83,9 +85,9 @@ src_configure() {
 
 src_test() {
 	# FIXME: This should be handled at eclass level.
-	"${EPREFIX%/}/${GLIB_COMPILE_SCHEMAS}" --allow-any-name "${S}/data" || die
+	"${EPREFIX}/${GLIB_COMPILE_SCHEMAS}" --allow-any-name "${S}/data" || die
 
 	unset DBUS_SESSION_BUS_ADDRESS
-
-	GSETTINGS_SCHEMA_DIR="${S}/data" Xemake check
+	local -x GSETTINGS_SCHEMA_DIR="${S}/data"
+	virtx emake check
 }
