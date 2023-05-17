@@ -77,6 +77,9 @@ src_configure() {
 	)
 
 	mate_src_configure "${myconf[@]}"
+	pushd po
+	make update-gmo
+	popd
 }
 
 src_install() {
