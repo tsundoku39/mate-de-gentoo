@@ -44,6 +44,9 @@ src_configure() {
 		$(use_enable caja caja-actions) \
 		$(use_enable magic) \
 		--disable-packagekit
+	pushd po
+	make update-gmo
+	popd
 }
 
 pkg_postinst() {
